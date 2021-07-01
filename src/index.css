@@ -1,0 +1,68 @@
+body {
+    font: 18px "Tahoma";
+    color: rgb(24, 14, 92);
+
+    background-color: white;
+}
+
+.title {
+    font-size: 32px;
+
+    text-align: center;
+    
+}
+
+.word-correct {
+    color: palegreen;
+}
+
+.word-incorrect {
+    color: palevioletred;
+}
+
+.word {
+    color: black;
+}
+
+.timer{
+    font-size: 24px;
+    font-weight: bold;
+
+    text-align: center; 
+}
+
+.counter{
+    font-size: 24px;
+    font-weight: bold;
+
+    text-align: center;
+}
+
+.display{
+    background-color: whitesmoke;
+
+    height: 200px;
+    margin-bottom: 1%;
+
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    padding-top: 1%;
+
+    text-align: justify;
+
+    border-color: black;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 1px;
+}
+
+.entry{
+    width: 45%;
+    
+    display: block;
+    margin: auto;
+
+    border-radius: 10px;
+    border-width: 1px;
+}
