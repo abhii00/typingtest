@@ -23,7 +23,32 @@ function Word(props){
 }
 
 class WordDisplay extends React.Component{
-    renderWord(word, correct){
+    constructor(props){
+        super(props);
+        this.state = {
+            dictionarySource: this.props.dictionarySource,
+            dictionary: Array(0).fill(null),
+            wordList: Array(0).fill(null),
+        };
+    }
+
+    componentDidMount(){
+        fetch(this.state.dictionarySource)
+        .then((r) => r.text())
+        .then(text  => {
+            this.setState({dictionary: text.split("\r\n")});
+
+            var tempwordList = this.state.dictionary;
+            for (let i = tempwordList.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [tempwordList[i], tempwordList[j]] = [tempwordList[j], tempwordList[i]];
+            }
+            tempwordList.slice(0,this.props.wordsTotal);
+            this.setState({wordList: tempwordList});
+        })  
+    }
+
+    renderWord(word, correct, wordID){
         var wordType;
         switch (correct){
             case true:
@@ -36,15 +61,15 @@ class WordDisplay extends React.Component{
                 wordType = "word";
                 break;
         }
-        return <Word word={word} className={wordType}/>;
+        return <Word word={word} className={wordType} key={wordID}/>;
     }
 
     render() {
         return (
             <div className="display">
-                {this.renderWord("apples", true)}
-                {this.renderWord("banana", false)}
-                {this.renderWord("cranberries")}
+                {this.state.wordList.map((word, index) => (
+                    this.renderWord(word, null, index)
+                ))}
             </div>
         );
     }
@@ -58,7 +83,6 @@ function Counter(props){
     );
 }
 
-
 class Entry extends React.Component{
     render(){
         return(
@@ -71,7 +95,9 @@ class TypingTest extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            dictionarySource: "./dictionaries/dict_test.txt",
             wordsCorrect: 5,
+            wordsTotal: 200,
             timeRemaining: 30,
         };
     }
@@ -84,13 +110,17 @@ class TypingTest extends React.Component{
         return <Counter value={this.state.timeRemaining} className="timer"/>;
     }
 
+    renderWordDisplay(){
+        return <WordDisplay dictionarySource={this.state.dictionarySource} wordsTotal={this.state.wordsTotal}/>;
+    }
+
     render() {
         return(
             <div>
                 <Title/>
                 {this.renderCounter()}
                 {this.renderTimer()}
-                <WordDisplay/>
+                {this.renderWordDisplay()}
                 <Entry/>
             </div>
         );
