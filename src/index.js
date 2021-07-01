@@ -29,6 +29,7 @@ class WordDisplay extends React.Component{
             dictionarySource: this.props.dictionarySource,
             dictionary: Array(0).fill(null),
             wordList: Array(0).fill(null),
+            wordStates: Array(0).fill(null),
         };
     }
 
@@ -68,7 +69,7 @@ class WordDisplay extends React.Component{
         return (
             <div className="display">
                 {this.state.wordList.map((word, index) => (
-                    this.renderWord(word, null, index)
+                    this.renderWord(word, this.state.wordStates[index], index)
                 ))}
             </div>
         );
