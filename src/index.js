@@ -77,6 +77,19 @@ class Entry extends React.Component
     }
 }
 
+class WPM extends React.Component
+//component for wpm
+{
+    render(){
+        return(
+            <div className="wpm
+            ">
+                {this.props.WPM} words/minute
+            </div>
+        );
+    }
+}
+
 class TypingTest extends React.Component
 //component for overall typing test
 {
@@ -85,8 +98,8 @@ class TypingTest extends React.Component
         this.consts = {
             wordsTotal: 200,
 
-            testTime: 60,
-            intervalTime: 1
+            testTime: 10,
+            intervalTime: 0.01
         }
 
         this.state = {
@@ -94,11 +107,11 @@ class TypingTest extends React.Component
             dictionary: Array(0).fill(null),
             wordList: Array(this.consts.wordsTotal).fill(null),
             wordStates: Array(this.consts.wordsTotal).fill(null),
+            wordTimes: Array(this.consts.wordsTotal).fill(null),
+            wordWPMs: Array(this.consts.wordsTotal).fill(null),
 
-            timeRemaining: 30,
+            timeRemaining: this.consts.testTime,
             startTime: 0,
-            currentTime: 0,
-            endTime: 0,
 
             testing: "pre",
             wordsCorrect: 0,
@@ -108,7 +121,9 @@ class TypingTest extends React.Component
         };
 
         this.startTest = this.startTest.bind(this);
+        this.endTest = this.endTest.bind(this);
         this.entryUpdate = this.entryUpdate.bind(this);
+        this.checkTimer = this.checkTimer.bind(this);
     }
 
     startTest(){ 
@@ -131,9 +146,29 @@ class TypingTest extends React.Component
         this.setState({
             testing: "test",
             startTime: Date.now(),
-            endTime: this.state.startTime + this.state.testTime
         });
+        this.interval = setInterval(this.checkTimer, this.consts.intervalTime*1000);
+
         console.log("Test Started");
+    }
+
+    endTest(){
+        this.setState({
+            testing: "post",
+            startTime: Date.now(),
+            WPM: this.state.wordsCorrect*60/this.consts.testTime,
+        });
+        clearInterval(this.interval);
+    }
+
+    checkTimer(){
+        this.setState({
+            timeRemaining: (this.state.startTime + this.consts.testTime*1000 - Date.now())/1000
+        })
+
+        if (this.state.timeRemaining <= 0){
+            this.endTest();
+        }
     }
 
     entryUpdate(e){
@@ -141,13 +176,15 @@ class TypingTest extends React.Component
         var currentEntry = entryString.split("")
 
         if (currentEntry[currentEntry.length - 1] === " "){
-            var twS = this.state.wordStates;
             var tcW = this.state.currentWord + 1;
+            var twS = this.state.wordStates;
             var twC = this.state.wordsCorrect;
             var twI = this.state.wordsIncorrect;
+            var twT = this.state.wordTimes;
             
             if (currentEntry.join("") === this.state.wordList[this.state.currentWord] + " "){
                 twS[this.state.currentWord] = true;
+                twT[this.state.wordTimes] = this.consts.testTime - this.state.timeRemaining;
                 twC += 1;
                 console.log("Correct Word");
             }
@@ -158,17 +195,18 @@ class TypingTest extends React.Component
             }
 
             this.setState({
-                wordStates: twS,
                 currentWord: tcW,
+                wordStates: twS,
+                wordTimes: twT,
                 wordsCorrect: twC,
-                wordsIncorrect: twI
+                wordsIncorrect: twI,
             })
 
             e.target.value = ""
         }
     }
 
-    renderCounter(){
+    renderWordCounters(){
         return (
         <div className = "container-counter">
             <Counter value={this.state.wordsCorrect} className="counter-correct"/>
@@ -178,11 +216,15 @@ class TypingTest extends React.Component
     }
 
     renderTimer(){
-        return <Counter value={this.state.timeRemaining} className="timer"/>;
+        return <Counter value={Math.round(this.state.timeRemaining*10)/10} className="timer"/>;
     }
 
     renderWordDisplay(){
         return <WordDisplay wordList={this.state.wordList} wordStates={this.state.wordStates}/>;
+    }
+
+    renderWPM(){
+        return <WPM WPM={this.state.WPM} className="wpm"/>;
     }
 
     render() {
@@ -191,7 +233,7 @@ class TypingTest extends React.Component
                 return (
                     <div>
                         <Title/>
-                        {this.renderCounter()}
+                        {this.renderWordCounters()}
                         {this.renderTimer()}
                         {this.renderWordDisplay()}
                         <Entry handleChange={this.startTest}/>
@@ -201,14 +243,20 @@ class TypingTest extends React.Component
                 return (
                     <div>
                         <Title/>
-                        {this.renderCounter()}
+                        {this.renderWordCounters()}
                         {this.renderTimer()}
                         {this.renderWordDisplay()}
                         <Entry handleChange={this.entryUpdate}/>
                     </div>
                 );
             case "post":
-                break;
+                return(
+                    <div>
+                        <Title/>
+                        {this.renderWordCounters()}
+                        {this.renderWPM()}
+                    </div>
+                );
             default:
                 break;
         }
