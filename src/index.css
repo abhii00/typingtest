@@ -13,7 +13,7 @@ body {
 }
 
 .word-correct {
-    color: palegreen;
+    color: green;
 }
 
 .word-incorrect {
@@ -42,7 +42,7 @@ body {
 
     font-size: 24px;
     font-weight: bold;
-    color: palegreen;
+    color: green;
 }
 
 .counter-incorrect{

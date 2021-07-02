@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 
 import './index.css'
 
-class Title extends React.Component{
+class Title extends React.Component
+//component for the title
+{
     render() {
         return (
             <div className="title">
@@ -13,7 +15,9 @@ class Title extends React.Component{
     }
 }
 
-function Word(props){
+function Word(props)
+//component for individual words
+{
     return(
         <nobr className={props.className}>
             {props.word}
@@ -22,8 +26,11 @@ function Word(props){
     );
 }
 
-class WordDisplay extends React.Component{
-    renderWord(word, correct, wordID){
+class WordDisplay extends React.Component
+//component to display words for test
+{
+    renderWord(word, correct, wordID)
+    {
         var wordType;
         switch (correct){
             case true:
@@ -50,7 +57,9 @@ class WordDisplay extends React.Component{
     }
 }
 
-function Counter(props){
+function Counter(props)
+//component for simple number display
+{
     return(
         <div className={props.className}> 
             {props.value}
@@ -58,7 +67,9 @@ function Counter(props){
     );
 }
 
-class Entry extends React.Component{
+class Entry extends React.Component
+//component for word entry
+{
     render(){
         return(
             <input type="text" className="entry" onChange={this.props.handleChange}></input>
@@ -66,7 +77,9 @@ class Entry extends React.Component{
     }
 }
 
-class TypingTest extends React.Component{
+class TypingTest extends React.Component
+//component for overall typing test
+{
     constructor(props){
         super(props);
         this.consts = {
@@ -192,7 +205,6 @@ class TypingTest extends React.Component{
                         {this.renderTimer()}
                         {this.renderWordDisplay()}
                         <Entry handleChange={this.entryUpdate}/>
-                        <button onClick = {() => this.setState({testing: "pre"})}> Stop </button>
                     </div>
                 );
             case "post":
@@ -203,6 +215,7 @@ class TypingTest extends React.Component{
     }
 }
 
+//render typing test
 ReactDOM.render(
     <TypingTest />,
     document.getElementById('root')
