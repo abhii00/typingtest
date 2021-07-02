@@ -1,7 +1,6 @@
 {
   "short_name": "React App",
   "name": "Create React App Sample",
-  "homepage": "https://abhii00.github.io/typingtest/",
   "icons": [
     {
       "src": "favicon.ico",
@@ -19,10 +18,6 @@
       "sizes": "512x512"
     }
   ],
-  "scripts": {
-    "predeploy": "yarn run build",
-		"deploy": "gh-pages -d build"
-  },
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
