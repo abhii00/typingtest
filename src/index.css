@@ -1,0 +1,90 @@
+body {
+    font: 18px "Tahoma";
+    color: rgb(24, 14, 92);
+
+    background-color: white;
+}
+
+.title {
+    font-size: 32px;
+
+    text-align: center;
+    
+}
+
+.word-correct {
+    color: green;
+}
+
+.word-incorrect {
+    color: palevioletred;
+}
+
+.word {
+    color: black;
+}
+
+.timer{
+    font-size: 24px;
+    font-weight: bold;
+
+    text-align: center; 
+}
+
+.container-counter{
+    width: 10%; 
+    margin: auto;
+    display: flex;
+}
+
+.counter-correct{
+    margin: auto;
+
+    font-size: 24px;
+    font-weight: bold;
+    color: green;
+}
+
+.counter-incorrect{
+    margin: auto;
+
+    font-size: 24px;
+    font-weight: bold;
+    color: palevioletred;
+}
+
+.display{
+    background-color: whitesmoke;
+
+    margin-bottom: 1%;
+
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-bottom: 1%;
+    padding-top: 1%;
+
+    text-align: justify;
+    word-wrap: break-word;
+
+    border-color: black;
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 1px;
+}
+
+.entry{
+    width: 45%;
+    
+    display: block;
+    margin: auto;
+
+    border-radius: 5px;
+    border-width: 1px;
+}
+
+.wpm{
+    font-size: 24px;
+    font-weight: bold;
+
+    text-align: center;
+}
