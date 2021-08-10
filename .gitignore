@@ -1,3 +1,6 @@
+# assets
+/src/assets
+
 # dependencies
 /node_modules
 /.pnp
@@ -8,9 +11,6 @@
 
 # production
 /build
-
-# assets
-/src/assets
 
 # misc
 .DS_Store
