@@ -10,7 +10,7 @@
 /build
 
 # assets
-/assets
+/src/assets
 
 # misc
 .DS_Store
