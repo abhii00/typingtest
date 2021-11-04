@@ -20,6 +20,7 @@ _June 2021 - Present_
 
 ### **New Skills**
 
+* Github branching.
 * Interactive game-esque tools.
 * Tkinter.
 
