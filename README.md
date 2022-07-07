@@ -1,5 +1,7 @@
 # **Typing Test**
 
+:white_check_mark: WORK PLANNED :white_check_mark:
+
 A test designed to measure and track WPM scores over time.
 
 _June 2021 - Present_
